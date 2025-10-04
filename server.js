@@ -39,8 +39,12 @@ io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
         const message = { user: usuarios[socket.id], text: msg.text };
 
+        if(!user) {
+            return;
+        }
+
         historialMensajes.push(message);
-        if (historialMensajes.length > 50) {  // CORREGIDO
+        if (historialMensajes.length > 50) {
             historialMensajes.shift();
         }
 
