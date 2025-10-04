@@ -6,9 +6,6 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-const port = proccess.env.PORT || 3000;
-server.listen(port, () => console.log(`Servidor en puerto ${port}`));
-
 app.use(express.static('public'));
 
 let usuarios = {};
@@ -61,6 +58,11 @@ io.on('connection', (socket) => {
     });
 });
 
+const port = process.env.PORT || 3000;
+server.listen(port, () => console.log(`Servidor en puerto ${port}`));
+
+/*
 server.listen(3000, () => {
     console.log('Servidor corriendo en http://localhost:3000');
 });
+*/
