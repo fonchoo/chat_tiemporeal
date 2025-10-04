@@ -15,7 +15,7 @@ body {
   width: 100%;
   max-width: 600px;
   height: 90vh;
-  display: flex;
+  display: none; /* oculto hasta que se elija apodo */
   flex-direction: column;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
@@ -36,11 +36,14 @@ body {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-messages ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .chat-messages li {
@@ -48,6 +51,7 @@ body {
   padding: 8px 12px;
   border-radius: 8px;
   max-width: 70%;
+  word-wrap: break-word;
 }
 
 /* Estilos de mensajes */
@@ -128,4 +132,84 @@ body {
   .chat-input button {
     padding: 8px;
   }
+}
+
+/* ====== PANTALLA DE APODO ====== */
+.nickname-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.nickname-container input {
+  padding: 10px;
+  width: 80%;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.nickname-container button {
+  padding: 10px 20px;
+  background: #4a76a8;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* ====== ELEMENTOS ADICIONALES ====== */
+#userList {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+  max-width: 200px;
+}
+
+#userList h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #4a76a8;
+}
+
+#userList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#userList li {
+  padding: 2px 0;
+  font-size: 12px;
+}
+
+#typing {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  z-index: 1000;
+}
+
+/* Estilos para mensajes propios y de otros */
+.me {
+  background: #d1f1d6;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.other {
+  background: #e8e8e8;
+  align-self: flex-start;
 }

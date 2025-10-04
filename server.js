@@ -36,7 +36,8 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('chat message', (msg) => {
+    socket.on('chat message', (data) => {
+        const {user, msg} = data;
         const message = { user: usuarios[socket.id], text: msg.text };
 
         if(!user) {
@@ -48,7 +49,7 @@ io.on('connection', (socket) => {
             historialMensajes.shift();
         }
 
-        io.emit('chat message', message);
+        io.emit('chat message', { user, msg });
     });
 
     socket.on('disconnect', () => {
@@ -62,11 +63,11 @@ io.on('connection', (socket) => {
     });
 });
 
+/*
 const port = process.env.PORT || 3000;
 server.listen(port, () => console.log(`Servidor en puerto ${port}`));
+*/
 
-/*
 server.listen(3000, () => {
     console.log('Servidor corriendo en http://localhost:3000');
 });
-*/

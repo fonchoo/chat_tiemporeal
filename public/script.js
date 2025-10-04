@@ -5,14 +5,19 @@ let isTyping = false;
 
 const form = document.getElementById('form');
 const input = document.getElementById('input');
-const messages = document.getElementById('messages'); // usamos este
+const messages = document.getElementById('messages');
 const nicknameInput = document.getElementById('nickname');
 const nicknameContainer = document.getElementById('nickname-container');
+const chatContainer = document.getElementById('chat-container');
+
+// Crear elementos dinámicos
 const userList = document.createElement('div');
-const typingDiv = document.getElementById('typing');
+const typingDiv = document.createElement('div');
 
 userList.id = "userList";
+typingDiv.id = "typing";
 document.body.appendChild(userList);
+document.body.appendChild(typingDiv);
 
 // Recibir historial de mensajes al conectarse
 socket.on('chat history', (messagesHistory) => {
@@ -53,7 +58,7 @@ function setNickname() {
             if (response.success) {
                 nickname = nick;
                 nicknameContainer.style.display = 'none';
-                form.style.display = 'flex';
+                chatContainer.style.display = 'flex';
             } else {
                 alert(response.message);
             }
@@ -67,7 +72,7 @@ function setNickname() {
 form.addEventListener('submit', function(e) {
     e.preventDefault();
     if (input.value && nickname) {
-        socket.emit('chat message', { text: input.value });
+        socket.emit('chat message', { user: nickname, msg: { text: input.value } });
         input.value = '';
     } else if (!nickname){
         alert('Debes ingresar un apodo antes de escribir.');
@@ -75,13 +80,13 @@ form.addEventListener('submit', function(e) {
 });
 
 // Mostrar mensajes en la lista
-socket.on('chat message', function(msg) {
+socket.on('chat message', function(data) {
     const item = document.createElement('li');
-    item.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
-    if(msg.user === nickname){
-        item.classList.add('me');
+    item.innerHTML = `<strong>${data.user}:</strong> ${data.msg.text}`;
+    if(data.user === nickname){
+        item.classList.add('message-self');
     } else{
-        item.classList.add('other');
+        item.classList.add('message-other');
     }
 
     messages.appendChild(item);
@@ -92,8 +97,10 @@ socket.on('chat message', function(msg) {
 socket.on('system message', function(msg) {
     const item = document.createElement('li');
     item.style.color = "gray";
+    item.style.fontStyle = "italic";
     item.textContent = msg;
     messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
 });
 
 // Lista de usuarios conectados
