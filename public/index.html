@@ -1,55 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+<head> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Chat en Tiempo Real</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-    }
-    #messages {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      height: 300px;
-      overflow-y: scroll;
-      border: 1px solid #ccc;
-      background: white;
-    }
-    #messages li {
-      padding: 5px 10px;
-    }
-    #form {
-      display: none;
-      margin-top: 10px;
-    }
-    #input {
-      width: 80%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    #form button {
-      padding: 10px;
-      margin-left: 5px;
-    }
-    #nickname-container {
-      margin-bottom: 10px;
-    }
-    #typing {
-      color: gray;
-      font-style: italic;
-      margin-top: 5px;
-    }
-    #userList {
-      margin-top: 20px;
-      padding: 10px;
-      background: #fff;
-      border: 1px solid #ccc;
-    }
-  </style>
 </head>
 <body>
   <h2>Chat en Tiempo Real</h2>
@@ -60,11 +14,13 @@
     <button type="button" onclick="setNickname()">Entrar</button>
   </div>
 
-  <!-- Lista de mensajes -->
-  <ul id="messages"></ul>
+  <div id="chat">
+    <!-- Lista de mensajes -->
+    <ul id="messages"></ul>
 
-  <!-- Indicador de escritura -->
-  <div id="typing"></div>
+    <!-- Indicador de escritura -->
+    <div id="typing"></div>
+  </div>
 
   <!-- Formulario del chat -->
   <form id="form">
