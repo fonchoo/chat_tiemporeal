@@ -66,9 +66,11 @@ function setNickname() {
 // Enviar mensaje
 form.addEventListener('submit', function(e) {
     e.preventDefault();
-    if (input.value) {
+    if (input.value && nickname) {
         socket.emit('chat message', { text: input.value });
         input.value = '';
+    } else if (!nickname){
+        alert('Debes ingresar un apodo antes de escribir.');
     }
 });
 
@@ -76,6 +78,12 @@ form.addEventListener('submit', function(e) {
 socket.on('chat message', function(msg) {
     const item = document.createElement('li');
     item.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
+    if(msg.user === nickname){
+        item.classList.add('me');
+    } else{
+        item.classList.add('other');
+    }
+
     messages.appendChild(item);
     messages.scrollTop = messages.scrollHeight;
 });
